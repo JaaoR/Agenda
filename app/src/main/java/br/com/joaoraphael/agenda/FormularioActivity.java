@@ -36,7 +36,7 @@ public class FormularioActivity extends AppCompatActivity {
             case R.id.menu_formulario_salvar:
                 Aluno aluno = helper.getAluno();
 
-                if (helper.nomeIsNull()) Toast.makeText(this, "Preencha as informações.", Toast.LENGTH_SHORT).show();
+                if (helper.nomeIsNull()) Toast.makeText(this, "Preencha o nome.", Toast.LENGTH_SHORT).show();
                 else {
                     AlunoDAO dao = new AlunoDAO(this);
                     dao.insereAluno(aluno);
