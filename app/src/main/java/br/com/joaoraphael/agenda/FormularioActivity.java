@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import br.com.joaoraphael.agenda.dao.AlunoDAO;
 import br.com.joaoraphael.agenda.modelo.Aluno;
-import br.com.joaoraphael.agenda.modelo.FormularioHelper;
 
 public class FormularioActivity extends AppCompatActivity {
 
@@ -46,7 +45,6 @@ public class FormularioActivity extends AppCompatActivity {
 
                     finish();
                 }
-
 
                 break;
         }
