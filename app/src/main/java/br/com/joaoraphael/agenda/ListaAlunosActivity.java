@@ -29,6 +29,12 @@ public class ListaAlunosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_alunos);
 
         listaAlunos = findViewById(R.id.lista_alunos);
+        listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> lista, View item, int posicao, long id) {
+                Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(posicao);
+                Toast.makeText(ListaAlunosActivity.this, "Aluno clicado: " + aluno.getNome(), Toast.LENGTH_SHORT).show();
+            }});
 
         Button botao = findViewById(R.id.lista_adicionar);
         botao.setOnClickListener(v -> {
