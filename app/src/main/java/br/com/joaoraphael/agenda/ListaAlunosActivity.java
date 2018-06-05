@@ -3,6 +3,11 @@ package br.com.joaoraphael.agenda;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -16,16 +21,22 @@ import br.com.joaoraphael.agenda.modelo.Aluno;
 
 public class ListaAlunosActivity extends AppCompatActivity {
 
+    private ListView listaAlunos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
+
+        listaAlunos = findViewById(R.id.lista_alunos);
 
         Button botao = findViewById(R.id.lista_adicionar);
         botao.setOnClickListener(v -> {
             Intent goToForm = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
             startActivity(goToForm);
         });
+
+        registerForContextMenu(listaAlunos);
     }
 
     @Override
@@ -41,8 +52,34 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
         ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(this, android.R.layout.simple_list_item_1, alunos);
 
-        ListView listaAlunos = findViewById(R.id.lista_alunos);
         listaAlunos.setAdapter(adapter);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_context_deletar, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_lista_deletar:
+                ContextMenu.ContextMenuInfo menuInfo = item.getMenuInfo();
+                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+
+                Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
+
+                AlunoDAO dao = new AlunoDAO(this);
+                dao.deleta(aluno);
+                dao.close();
+
+                Toast.makeText(ListaAlunosActivity.this, "Aluno " + aluno.getNome() + " deletado!", Toast.LENGTH_SHORT).show();
+                carregaLista();
+                break;
+
+        }
+        return super.onContextItemSelected(item);
     }
 
 }
