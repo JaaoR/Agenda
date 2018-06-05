@@ -33,7 +33,10 @@ public class ListaAlunosActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> lista, View item, int posicao, long id) {
                 Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(posicao);
-                Toast.makeText(ListaAlunosActivity.this, "Aluno clicado: " + aluno.getNome(), Toast.LENGTH_SHORT).show();
+
+                Intent goToForm = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+                goToForm.putExtra("alunoEditar", aluno);
+                startActivity(goToForm);
             }});
 
         Button botao = findViewById(R.id.lista_adicionar);

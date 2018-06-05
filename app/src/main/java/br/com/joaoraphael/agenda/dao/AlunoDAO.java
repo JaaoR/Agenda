@@ -18,7 +18,7 @@ public class AlunoDAO extends SQLiteOpenHelper {
     }
 
     public AlunoDAO(Context context) {
-        super(context, "Agenda", null, 1);
+        super(context, "Agenda", null, 2);
     }
 
     @Override
@@ -41,24 +41,28 @@ public class AlunoDAO extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insereAluno(Aluno aluno) {
+    public void insere(Aluno aluno) {
         SQLiteDatabase db = getWritableDatabase();
-
-        ContentValues valores = new ContentValues();
-        valores.put("nome", aluno.getNome());
-        valores.put("endereco", aluno.getEndereco());
-        valores.put("telefone", aluno.getTelefone());
-        valores.put("site", aluno.getSite());
-        valores.put("nota", aluno.getNome());
+        ContentValues valores = getContentValuesAluno(aluno);
 
         db.insert("alunos", null, valores);
 
     }
 
+
     public void deleta(Aluno aluno){
         SQLiteDatabase db = getWritableDatabase();
         String[] params = {Long.toString(aluno.getId())};
         db.delete("alunos", "id = ?", params);
+
+    }
+
+    public void atualiza(Long id, Aluno novo){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues valores = getContentValuesAluno(novo);
+        String[] params = {id.toString()};
+
+        db.update("alunos", valores, "id = ?", params);
 
     }
 
@@ -75,12 +79,22 @@ public class AlunoDAO extends SQLiteOpenHelper {
             String endereco = c.getString(c.getColumnIndex("endereco"));
             String telefone = c.getString(c.getColumnIndex("telefone"));
             String site = c.getString(c.getColumnIndex("site"));
-            double nota = c.getDouble(c.getColumnIndex("nota"));
+            Double nota = c.getDouble(c.getColumnIndex("nota"));
 
             alunos.add(new Aluno(id, nome, endereco, telefone, site, nota));
         }
 
         c.close();
         return alunos;
+    }
+
+    private ContentValues getContentValuesAluno(Aluno aluno) {
+        ContentValues valores = new ContentValues();
+        valores.put("nome", aluno.getNome());
+        valores.put("endereco", aluno.getEndereco());
+        valores.put("telefone", aluno.getTelefone());
+        valores.put("site", aluno.getSite());
+        valores.put("nota", aluno.getNota());
+        return valores;
     }
 }

@@ -3,8 +3,6 @@ package br.com.joaoraphael.agenda;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
-import br.com.joaoraphael.agenda.FormularioActivity;
-import br.com.joaoraphael.agenda.R;
 import br.com.joaoraphael.agenda.modelo.Aluno;
 
 public class FormularioHelper {
@@ -14,6 +12,7 @@ public class FormularioHelper {
     private EditText campoTelefone;
     private EditText campoSite;
     private RatingBar campoNota;
+    private Aluno aluno;
 
     public FormularioHelper(FormularioActivity activity){
         campoNome = activity.findViewById(R.id.formulario_nome);
@@ -21,51 +20,67 @@ public class FormularioHelper {
         campoTelefone = activity.findViewById(R.id.formulario_telefone);
         campoSite = activity.findViewById(R.id.formulario_site);
         campoNota = activity.findViewById(R.id.formulario_nota);
-
+        aluno = new Aluno();
     }
 
     public Aluno getAluno() {
-        return new Aluno(1, getNome(), getEndereco(), getTelefone(), getSite(), getNota());
+        aluno.setNome(getNomeValue());
+        aluno.setEndereco(getEnderecoValue());
+        aluno.setTelefone(getTelefoneValue());
+        aluno.setSite(getSiteValue());
+        aluno.setNota(getNotaValue());
+
+        return aluno;
     }
 
-    private String getNome() {
+    private String getNomeValue() {
         return campoNome.getText().toString();
     }
 
-    private String getEndereco() {
+    private String getEnderecoValue() {
         return campoEndereco.getText().toString();
     }
 
-    private String getTelefone() {
+    private String getTelefoneValue() {
         return campoTelefone.getText().toString();
     }
 
-    private String getSite() {
+    private String getSiteValue() {
         return campoSite.getText().toString();
     }
 
-    private double getNota(){
+    private Double getNotaValue(){
         return Double.valueOf(campoNota.getProgress());
     }
 
     public boolean nomeIsNull(){
-        return getNome().equals("") || getNome().equals(" ");
+        return getNomeValue().equals("") || getNomeValue().equals(" ");
     }
 
     public boolean enderecoIsNull(){
-        return getEndereco().equals("") || getEndereco().equals(" ");
+        return getEnderecoValue().equals("") || getEnderecoValue().equals(" ");
     }
 
     public boolean telefoneIsNull(){
-        return getTelefone().equals("") || getTelefone().equals(" ");
+        return getTelefoneValue().equals("") || getTelefoneValue().equals(" ");
     }
 
     public boolean siteIsNull(){
-        return getSite().equals("") || getSite().equals(" ");
+        return getSiteValue().equals("") || getSiteValue().equals(" ");
     }
 
     public boolean isNull(){
         return nomeIsNull() || enderecoIsNull() || telefoneIsNull() || siteIsNull();
+    }
+
+    public void preencheFormulario(Aluno aluno) {
+        campoNome.setText(aluno.getNome());
+        campoEndereco.setText(aluno.getEndereco());
+        campoTelefone.setText(aluno.getTelefone());
+        campoSite.setText(aluno.getSite());
+        campoNota.setProgress(aluno.getNota().intValue());
+
+        this.aluno = aluno;
     }
 }
 

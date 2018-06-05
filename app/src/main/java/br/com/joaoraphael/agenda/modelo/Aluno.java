@@ -1,15 +1,21 @@
 package br.com.joaoraphael.agenda.modelo;
 
-public class Aluno {
+import java.io.Serializable;
 
-    private long id;
+public class Aluno implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private Long id;
     private String nome;
     private String endereco;
     private String telefone;
     private String site;
-    private double nota;
+    private Double nota;
 
-    public Aluno(long id, String nome, String endereco, String telefone, String site, double nota) {
+    public Aluno(){}
+
+    public Aluno(Long id, String nome, String endereco, String telefone, String site, Double nota) {
         this.id = id;
         this.nome = nome;
         this.endereco = endereco;
@@ -18,7 +24,7 @@ public class Aluno {
         this.nota = nota;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -38,8 +44,32 @@ public class Aluno {
         return site;
     }
 
-    public double getNota() {
+    public Double getNota() {
         return nota;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
+
+    public void setNota(Double nota) {
+        this.nota = nota;
     }
 
     @Override
