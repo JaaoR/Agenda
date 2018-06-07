@@ -1,6 +1,7 @@
 package br.com.joaoraphael.agenda;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -13,7 +14,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.joaoraphael.agenda.dao.AlunoDAO;
@@ -72,22 +72,44 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+
+        ContextMenu.ContextMenuInfo menuInfo = item.getMenuInfo();
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
+        AlunoDAO dao = new AlunoDAO(this);
+
         switch (item.getItemId()){
             case R.id.menu_lista_deletar:
-                ContextMenu.ContextMenuInfo menuInfo = item.getMenuInfo();
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-
-                Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
-
-                AlunoDAO dao = new AlunoDAO(this);
                 dao.deleta(aluno);
-                dao.close();
 
                 Toast.makeText(ListaAlunosActivity.this, "Aluno " + aluno.getNome() + " deletado!", Toast.LENGTH_SHORT).show();
                 carregaLista();
                 break;
 
+            case R.id.menu_lista_site:
+                Intent goToBrowser = new Intent(Intent.ACTION_VIEW);
+                String site = aluno.getSite();
+
+                if (!(site.startsWith("http://") || site.startsWith("https://"))){
+                    site = "http://" + site;
+                }
+
+                // Validação básica para saber se provavelmente é uma URL
+                if (site.contains(".")){
+                    try {
+                        goToBrowser.setData(Uri.parse((site)));
+                        startActivity(goToBrowser);
+                    } catch (Exception e){ }
+                }
+
+                Toast.makeText(this, "Site inválido.", Toast.LENGTH_SHORT).show();
+
+
+                break;
+
         }
+
+        dao.close();
         return super.onContextItemSelected(item);
     }
 

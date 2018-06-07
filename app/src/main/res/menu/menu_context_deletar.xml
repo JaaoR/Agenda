@@ -8,4 +8,8 @@
         android:id="@+id/menu_lista_deletar"
         android:title="Deletar" />
 
+    <item
+        android:id="@+id/menu_lista_site"
+        android:title="Visitar site" />
+
 </menu>
