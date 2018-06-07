@@ -16,6 +16,8 @@ public class FormularioHelper {
     private RatingBar campoNota;
     private Aluno aluno;
 
+    public FormularioHelper(){}
+
     public FormularioHelper(FormularioActivity activity){
         campoNome = activity.findViewById(R.id.formulario_nome);
         campoEndereco = activity.findViewById(R.id.formulario_endereco);
@@ -56,19 +58,19 @@ public class FormularioHelper {
     }
 
     public boolean nomeIsNull(){
-        return getNomeValue().equals("") || getNomeValue().equals(" ");
+        return getNomeValue().isEmpty() || getNomeValue().equals(" ");
     }
 
     public boolean enderecoIsNull(){
-        return getEnderecoValue().equals("") || getEnderecoValue().equals(" ");
+        return getEnderecoValue().isEmpty() || getEnderecoValue().equals(" ");
     }
 
     public boolean telefoneIsNull(){
-        return getTelefoneValue().equals("") || getTelefoneValue().equals(" ");
+        return getTelefoneValue().isEmpty() || getTelefoneValue().equals(" ");
     }
 
     public boolean siteIsNull(){
-        return getSiteValue().equals("") || getSiteValue().equals(" ");
+        return getSiteValue().isEmpty() || getSiteValue().equals(" ");
     }
 
     public boolean isNull(){

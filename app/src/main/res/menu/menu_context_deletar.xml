@@ -5,11 +5,23 @@
     tools:context="br.com.joaoraphael.agenda.ListaAlunosActivity">
 
     <item
-        android:id="@+id/menu_lista_deletar"
-        android:title="Deletar" />
+        android:id="@+id/menu_lista_chamada"
+        android:title="Ligar" />
+
+    <item
+        android:id="@+id/menu_lista_sms"
+        android:title="Enviar SMS" />
 
     <item
         android:id="@+id/menu_lista_site"
         android:title="Visitar site" />
+
+    <item
+        android:id="@+id/menu_lista_endereco"
+        android:title="Visualizar no mapa" />
+
+    <item
+        android:id="@+id/menu_lista_deletar"
+        android:title="Deletar" />
 
 </menu>
