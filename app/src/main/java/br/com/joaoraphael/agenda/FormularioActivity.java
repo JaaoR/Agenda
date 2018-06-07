@@ -57,11 +57,12 @@ public class FormularioActivity extends AppCompatActivity {
                         Aluno alunoIntent = (Aluno) intent.getSerializableExtra("alunoEditar");
                         dao.atualiza(alunoIntent.getId(), aluno);
                     }
+
+                    Toast.makeText(FormularioActivity.this, "Aluno salvo com sucesso!" , Toast.LENGTH_SHORT).show();
+                    dao.close();
+                    finish();
                 }
 
-                Toast.makeText(FormularioActivity.this, "Aluno salvo com sucesso!" , Toast.LENGTH_SHORT).show();
-                dao.close();
-                finish();
                 break;
         }
 
