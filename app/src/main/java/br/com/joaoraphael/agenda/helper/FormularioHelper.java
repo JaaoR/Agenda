@@ -1,8 +1,10 @@
-package br.com.joaoraphael.agenda;
+package br.com.joaoraphael.agenda.helper;
 
 import android.widget.EditText;
 import android.widget.RatingBar;
 
+import br.com.joaoraphael.agenda.FormularioActivity;
+import br.com.joaoraphael.agenda.R;
 import br.com.joaoraphael.agenda.modelo.Aluno;
 
 public class FormularioHelper {

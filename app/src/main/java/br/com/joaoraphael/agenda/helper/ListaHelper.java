@@ -1,4 +1,4 @@
-package br.com.joaoraphael.agenda;
+package br.com.joaoraphael.agenda.helper;
 
 public class ListaHelper {
 

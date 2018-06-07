@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import br.com.joaoraphael.agenda.dao.AlunoDAO;
+import br.com.joaoraphael.agenda.helper.ListaHelper;
 import br.com.joaoraphael.agenda.modelo.Aluno;
 
 public class ListaAlunosActivity extends AppCompatActivity {
