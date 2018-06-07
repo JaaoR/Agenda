@@ -22,11 +22,14 @@ import br.com.joaoraphael.agenda.modelo.Aluno;
 public class ListaAlunosActivity extends AppCompatActivity {
 
     private ListView listaAlunos;
+    private ListaHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
+
+        helper = new ListaHelper();
 
         listaAlunos = findViewById(R.id.lista_alunos);
         listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -89,21 +92,18 @@ public class ListaAlunosActivity extends AppCompatActivity {
             case R.id.menu_lista_site:
                 Intent goToBrowser = new Intent(Intent.ACTION_VIEW);
                 String site = aluno.getSite();
-
-                if (!(site.startsWith("http://") || site.startsWith("https://"))){
-                    site = "http://" + site;
-                }
+                site = helper.corrigeSite(site);
 
                 // Validação básica para saber se provavelmente é uma URL
-                if (site.contains(".")){
+                if (helper.validaSite(site)){
                     try {
                         goToBrowser.setData(Uri.parse((site)));
                         startActivity(goToBrowser);
+
                     } catch (Exception e){ }
+                } else {
+                    Toast.makeText(this, "Site inválido.", Toast.LENGTH_SHORT).show();
                 }
-
-                Toast.makeText(this, "Site inválido.", Toast.LENGTH_SHORT).show();
-
 
                 break;
 
